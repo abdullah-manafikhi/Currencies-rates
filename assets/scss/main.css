@@ -27,12 +27,27 @@ main .select-curr {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+main .select-curr select {
+  width: 8rem;
+  margin-left: 1rem;
+  padding: .3rem;
+  border-radius: 4rem;
+  -webkit-border-radius: 4rem;
+  -moz-border-radius: 4rem;
+  -ms-border-radius: 4rem;
+  -o-border-radius: 4rem;
 }
 
 main .grid {
   margin-top: 1.5rem;
   display: -ms-grid;
   display: grid;
+  gap: 1rem;
   -ms-grid-columns: auto auto auto;
       grid-template-columns: auto auto auto;
 }
@@ -67,5 +82,12 @@ main .sub-task h3 {
 
 main .sub-task p {
   margin: 1.4rem 0rem 0rem 1rem;
+}
+
+@media (max-width: 520px) {
+  .grid {
+    -ms-grid-columns: auto !important;
+        grid-template-columns: auto !important;
+  }
 }
 /*# sourceMappingURL=main.css.map */

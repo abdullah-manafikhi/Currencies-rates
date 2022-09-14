@@ -28,11 +28,24 @@ main{
     .select-curr{
         margin: auto;
         width: fit-content;
+        display: flex;
+
+        select{
+            width: 8rem;
+            margin-left: 1rem ;
+            padding: .3rem;
+            border-radius: 4rem;
+            -webkit-border-radius: 4rem;
+            -moz-border-radius: 4rem;
+            -ms-border-radius: 4rem;
+            -o-border-radius: 4rem;
+        }
     }
 
     .grid{
         margin-top: 1.5rem;
         display: grid;
+        gap : 1rem;
         grid-template-columns: auto auto auto;
 
         .groups{
@@ -62,6 +75,12 @@ main{
         p{
             margin: 1.4rem 0rem 0rem 1rem ;
         }
+    }
+}
+
+@media (max-width: 520px) {
+    .grid{
+        grid-template-columns:auto !important;
     }
 }
 

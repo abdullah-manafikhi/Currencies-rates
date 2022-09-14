@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function(){
         // DISPLAYING LOADING WHILE FETCHINF THE API AND THEN HIDE IT 
         fetchedData.length !== 0? loading.style.display = 'none' : loading.style.display = 'block'
         console.log(fetchedData)
-        if(fetchedData){
+        if(fetchedData.length !== 0 ){
             const jsonData = JSON.stringify(fetchedData)
             localStorage.setItem("currencies" , jsonData)
             console.log(localStorage)
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function(){
             } )
             currencies.forEach((curr ,index) => {
                 if(index === selectedCurrIndex)return
-                console.log(fetchedData[index][currencies[index]].usd)
+               // console.log(fetchedData[index][currencies[index]].usd)
                 finalArr.push(fetchedData[index][currencies[index]][selectedCurr])
             })
             finalArr.sort((a,b) => b-a)
@@ -102,7 +102,8 @@ document.addEventListener("DOMContentLoaded", function(){
         for(let i=beginning;i<beginning+maxLen;i++){
             ++result
         }
-        console.log(result)
+        const value = document.getElementById("subTaskValue")
+        value.innerText = result
     }
         //filtering the currencies depending on the user selection
         // and sorting them into 3 groups 
