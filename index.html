@@ -14,6 +14,7 @@
         <h2 class="nav_logo">Curreny Rates</h2>
     </nav>
     <main>
+
         <!--=========DROP DOWN SELECT =========-->
         <div class="select-curr">
             <label for="cars">Choose a Currency:</label>
@@ -26,40 +27,43 @@
                 <option value="nzd">NZD</option>
                 <option value="bgn">BGN</option>
             </select>
-        </div>
-
-       
+        </div>       
 
         <!--========= DISPLAYING CURRENCIES =======-->
         <div class="grid" id="grid">
             <div class="groups group-1 ">
                 <h2 class="group-head">Group 1</h2>
-                <p>rate &lt 1</p>
+                <p class="group-sub-head">rate &lt 1</p>
                 <div class="group-data group-1-data" id="group1Data"></div>
             </div>
             <div class="groups group-2">
                 <h2 class="group-head">Group 2</h2>
-                <p>1 &lt rate &lt 1.5</p>
+                <p class="group-sub-head">1 &lt rate &lt 1.5</p>
                 <div class="group-data group-2-data" id="group2Data"></div>
             </div>
             <div class="groups group-3">
                 <h2 class="group-head">Group 3</h2>
-                <p>rate &gt 1.5</p>
+                <p class="group-sub-head">rate &gt 1.5</p>
                 <div class="group-data group-3-data" id="group3Data"></div>
             </div>
         </div>
         <div class="sub-task">
             <h3 class="sub-task-head">The length of the array is :</h2>
-            <p id="subTaskValue">6</p>
+            <p id="subTaskValue"></p>
         </div>
 
          <!--========= Loading ===============-->
 
-         <div class="loading" id="loading">
+        <div class="loading" id="loading">
             <p>Loading....</p>
         </div>
     </main>
 
     <script src="assets/index.js"></script>
+    <script>
+        if(navigator.serviceWorker){
+            navigator.serviceWorker.register('sw.js')
+        }
+    </script>
 </body>
 </html>

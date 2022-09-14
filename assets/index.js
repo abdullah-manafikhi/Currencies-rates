@@ -1,110 +1,104 @@
-document.addEventListener("DOMContentLoaded", function(){
+    document.addEventListener("DOMContentLoaded", function(){
 
-    let loading = document.getElementById("loading")
-    let groups = document.querySelectorAll(".group-data")
-    console.log(groups)
-    console.log(loading)
-    // ====== FETCHING API ========
-    const getCurrencies = async () => {
+        let loading = document.getElementById("loading")
+        let groups = document.querySelectorAll(".group-data")
+        console.log(groups)
+        console.log(loading)
         let currencies = ['usd' , 'eur' , 'aud' , 'cad' , 'chf' , 'nzd' , 'bgn']
-        let fetchedData = []
-            await Promise.all(
-            currencies.map( async (currency) => {
-                console.log(currency)
-                const result = await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`)
-                console.log(result)
-                const data = await result.json()
-                console.log(data)
-                fetchedData.push(data)
-            })
-          );
-        // DISPLAYING LOADING WHILE FETCHINF THE API AND THEN HIDE IT 
-        fetchedData.length !== 0? loading.style.display = 'none' : loading.style.display = 'block'
-        console.log(fetchedData)
-        if(fetchedData.length !== 0 ){
-            const jsonData = JSON.stringify(fetchedData)
-            localStorage.setItem("currencies" , jsonData)
-            console.log(localStorage)
-        }
-        else{
-            console.log("its running ")
-            let storedData = localStorage.getItem("currencies")
-            storedData = JSON.parse(storedData)
-            fetchedData =[...storedData]
-        }
+        // ====== FETCHING API ========
+        const getCurrencies = async () => {
+            let fetchedData = []
+                await Promise.all(
+                currencies.map( async (currency) => {
+                    console.log(currency)
+                    const result = await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`)
+                    console.log(result)
+                    const data = await result.json()
+                    console.log(data)
+                    fetchedData.push(data)
+                })
+            );
+            return fetchedData
+            }
+        displayData()
+        // all of the data are fetched now , lets start managing them
+        async function displayData(){
+            const fetchedData = await getCurrencies()
+            // DISPLAYING LOADING WHILE FETCHINF THE API AND THEN HIDE IT 
+            fetchedData.length !== 0? loading.style.display = 'none' : loading.style.display = 'block'
             console.log(fetchedData)
-           
 
-        const subTask = (selectedCurr) => {
-            const selectedCurrIndex = fetchedData.findIndex(obj => obj[selectedCurr] )
-            console.log(fetchedData)
-            console.log(fetchedData[selectedCurrIndex]) 
-            let finalArr = []
-            currencies.forEach((curr) =>{
-                if(curr === selectedCurr)return
-                console.log(fetchedData[selectedCurrIndex][selectedCurr][curr])
-                finalArr.push(fetchedData[selectedCurrIndex][selectedCurr][curr])
-            } )
-            currencies.forEach((curr ,index) => {
-                if(index === selectedCurrIndex)return
-               // console.log(fetchedData[index][currencies[index]].usd)
-                finalArr.push(fetchedData[index][currencies[index]][selectedCurr])
-            })
-            finalArr.sort((a,b) => b-a)
-            console.log(finalArr)
-            // CHECK THE FUCNTION BELOW
-            longestArray(finalArr, 12, 0.5)
-        }
+            
+            const subTask = (selectedCurr) => {
+                const selectedCurrIndex = fetchedData.findIndex(obj => obj[selectedCurr] )
+                console.log(fetchedData)
+                console.log(fetchedData[selectedCurrIndex]) 
+                let finalArr = []
+                currencies.forEach((curr) =>{
+                    if(curr === selectedCurr)return
+                    console.log(fetchedData[selectedCurrIndex][selectedCurr][curr])
+                    finalArr.push(fetchedData[selectedCurrIndex][selectedCurr][curr])
+                } )
+                currencies.forEach((curr ,index) => {
+                    if(index === selectedCurrIndex)return
+                    // console.log(fetchedData[index][currencies[index]].usd)
+                    finalArr.push(fetchedData[index][currencies[index]][selectedCurr])
+                })
+                finalArr.sort((a,b) => b-a)
+                console.log(finalArr)
+                // CHECK THE FUCNTION BELOW
+                longestArray(finalArr, 12, 0.5)
+            }
         subTask("usd")
 
-    // finding the longest array that suits the subtask conditions
-    // from created array in the previous function
-    function longestArray(A, N){
+        // finding the longest array that suits the subtask conditions
+        // from created array in the previous function
+        function longestArray(A, N){
+            
+            let maxLen = 0
+            let beginning = 0
+            let window = new Map()
+            let start = 0
         
-        let maxLen = 0
-        let beginning = 0
-        let window = new Map()
-        let start = 0
-    
-        for(let end=0;end<N;end++){
-    
-            if(window.has(A[end]))
-                window.set(A[end],window.get(A[end]) + 1)
-            else
-                window.set(A[end] , 1)
+            for(let end=0;end<N;end++){
+        
+                if(window.has(A[end]))
+                    window.set(A[end],window.get(A[end]) + 1)
+                else
+                    window.set(A[end] , 1)
 
-            let minimum = Math.min(...window.keys())
-            let maximum = Math.max(...window.keys())
-    
-            if(maximum - minimum <= 0.5){
-                if(maxLen < end - start + 1){
-                    maxLen = end - start + 1
-                    beginning = start
+                let minimum = Math.min(...window.keys())
+                let maximum = Math.max(...window.keys())
+        
+                if(maximum - minimum <= 0.5){
+                    if(maxLen < end - start + 1){
+                        maxLen = end - start + 1
+                        beginning = start
+                    }
+                }
+                else{
+                    while(start < end){
+                        window.set(A[start],window.get(A[start]) - 1)
+                        if(window.get(A[start]) == 0)
+                            window.delete(A[start])
+                    
+                        start += 1
+                        minimum = Math.min(...window.keys())
+                        maximum = Math.max(...window.keys())
+
+                        if(maximum - minimum <= 0.5)
+                            break
+                    }
                 }
             }
-            else{
-                while(start < end){
-                    window.set(A[start],window.get(A[start]) - 1)
-                    if(window.get(A[start]) == 0)
-                        window.delete(A[start])
-                
-                    start += 1
-                    minimum = Math.min(...window.keys())
-                    maximum = Math.max(...window.keys())
-
-                    if(maximum - minimum <= 0.5)
-                        break
-                }
+                            
+            let result = 0
+            for(let i=beginning;i<beginning+maxLen;i++){
+                ++result
             }
+            const value = document.getElementById("subTaskValue")
+            value.innerText = result
         }
-                        
-        let result = 0
-        for(let i=beginning;i<beginning+maxLen;i++){
-            ++result
-        }
-        const value = document.getElementById("subTaskValue")
-        value.innerText = result
-    }
         //filtering the currencies depending on the user selection
         // and sorting them into 3 groups 
         const handlingData = (curr) => {
@@ -128,17 +122,17 @@ document.addEventListener("DOMContentLoaded", function(){
                 if(key !== curr &&( key === "usd" ||  key === "eur" || key === "aud" || key === "cad" || key === "chf" || key === "nzd" || key === "bgn")){
                     if(sortedData[`${key}`] < 1){
                         let test = document.createElement("p")
-                        test.textContent = key + " : " +sortedData[`${key}`]
+                        test.textContent =curr.toUpperCase() + "-" + key.toUpperCase() + " : " +sortedData[`${key}`]
                         groups[0].appendChild(test)
                     }
                     else if(sortedData[`${key}`] >= 1 && sortedData[`${key}`] < 1.5  ){
                         let test = document.createElement("p")
-                        test.textContent = key + " : " +sortedData[`${key}`]
+                        test.textContent = curr.toUpperCase() + "-" + key.toUpperCase() + " : " +sortedData[`${key}`]
                         groups[1].appendChild(test)
                     }
                     else{
                         let test = document.createElement("p")
-                        test.textContent = key + " : " +sortedData[`${key}`]
+                        test.textContent = curr.toUpperCase() + "-" + key.toUpperCase()  + " : " +sortedData[`${key}`]
                         groups[2].appendChild(test)
                     }
                 }    
@@ -154,7 +148,8 @@ document.addEventListener("DOMContentLoaded", function(){
             console.log(selectedCurr)
             handlingData(selectedCurr)
         })
-    }
+        }
+      
     try{
         getCurrencies()
     }
@@ -162,4 +157,4 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log(error)
     }
      
-})
+    })

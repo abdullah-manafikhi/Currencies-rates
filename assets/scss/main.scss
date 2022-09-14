@@ -25,6 +25,10 @@ main{
     top: 3rem;
     padding: 3rem 0rem;
 
+    label{
+        font-size: 20px;
+    }
+
     .select-curr{
         margin: auto;
         width: fit-content;
@@ -34,12 +38,13 @@ main{
             width: 8rem;
             margin-left: 1rem ;
             padding: .3rem;
-            border-radius: 4rem;
-            -webkit-border-radius: 4rem;
-            -moz-border-radius: 4rem;
-            -ms-border-radius: 4rem;
-            -o-border-radius: 4rem;
+            border-radius: 1rem;
+            -webkit-border-radius: 1rem;
+            -moz-border-radius: 1rem;
+            -ms-border-radius: 1rem;
+            -o-border-radius: 1rem;
         }
+        
     }
 
     .grid{
@@ -52,8 +57,15 @@ main{
             text-align: center;
             color: $main-color;
 
-            p{
-                color: black;
+            h2{
+                font-size: 30px;
+            }
+
+            .group-sub-head{
+                color: rgb(211, 189, 142);
+                position: relative;
+                bottom: 1rem;
+                margin-bottom: 1rem;
             }
         }
     }

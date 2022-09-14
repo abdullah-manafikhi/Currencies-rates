@@ -22,6 +22,10 @@ main {
   padding: 3rem 0rem;
 }
 
+main label {
+  font-size: 20px;
+}
+
 main .select-curr {
   margin: auto;
   width: -webkit-fit-content;
@@ -36,11 +40,11 @@ main .select-curr select {
   width: 8rem;
   margin-left: 1rem;
   padding: .3rem;
-  border-radius: 4rem;
-  -webkit-border-radius: 4rem;
-  -moz-border-radius: 4rem;
-  -ms-border-radius: 4rem;
-  -o-border-radius: 4rem;
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
 }
 
 main .grid {
@@ -57,8 +61,15 @@ main .grid .groups {
   color: #045004;
 }
 
-main .grid .groups p {
-  color: black;
+main .grid .groups h2 {
+  font-size: 30px;
+}
+
+main .grid .groups .group-sub-head {
+  color: #d3bd8e;
+  position: relative;
+  bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 main .loading {
