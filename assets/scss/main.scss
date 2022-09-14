@@ -1,0 +1,71 @@
+@import 'config';
+
+body{
+    margin:0rem;
+    padding: 0rem;
+    width: 100%;
+}
+
+nav{
+    height: 3rem;
+    width: 100%;
+    background-color: $main-color;
+    position: absolute;
+    color: white;
+
+    .nav_logo{
+        margin: .6rem 1.5rem;   
+    }
+}
+
+
+
+main{
+    position: relative;
+    top: 3rem;
+    padding: 3rem 0rem;
+
+    .select-curr{
+        margin: auto;
+        width: fit-content;
+    }
+
+    .grid{
+        margin-top: 1.5rem;
+        display: grid;
+        grid-template-columns: auto auto auto;
+
+        .groups{
+            text-align: center;
+            color: $main-color;
+
+            p{
+                color: black;
+            }
+        }
+    }
+
+    .loading{
+        width: 100%;
+        text-align: center;
+    }
+
+    .sub-task{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        h3{
+            color: $main-color ;
+        }
+
+        p{
+            margin: 1.4rem 0rem 0rem 1rem ;
+        }
+    }
+}
+
+
+
+
+

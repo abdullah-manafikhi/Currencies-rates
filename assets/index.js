@@ -1,0 +1,164 @@
+document.addEventListener("DOMContentLoaded", function(){
+
+    let loading = document.getElementById("loading")
+    let groups = document.querySelectorAll(".group-data")
+    console.log(groups)
+    console.log(loading)
+    // ====== FETCHING API ========
+    const getCurrencies = async () => {
+        let currencies = ['usd' , 'eur' , 'aud' , 'cad' , 'chf' , 'nzd' , 'bgn']
+        let fetchedData = []
+            await Promise.all(
+            currencies.map( async (currency) => {
+                console.log(currency)
+                const result = await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`)
+                console.log(result)
+                const data = await result.json()
+                console.log(data)
+                fetchedData.push(data)
+            })
+          );
+        // DISPLAYING LOADING WHILE FETCHINF THE API AND THEN HIDE IT 
+        fetchedData.length !== 0? loading.style.display = 'none' : loading.style.display = 'block'
+        console.log(fetchedData)
+        if(fetchedData){
+            const jsonData = JSON.stringify(fetchedData)
+            localStorage.setItem("currencies" , jsonData)
+            console.log(localStorage)
+        }
+        else{
+            console.log("its running ")
+            let storedData = localStorage.getItem("currencies")
+            storedData = JSON.parse(storedData)
+            fetchedData =[...storedData]
+        }
+            console.log(fetchedData)
+           
+
+        const subTask = (selectedCurr) => {
+            const selectedCurrIndex = fetchedData.findIndex(obj => obj[selectedCurr] )
+            console.log(fetchedData)
+            console.log(fetchedData[selectedCurrIndex]) 
+            let finalArr = []
+            currencies.forEach((curr) =>{
+                if(curr === selectedCurr)return
+                console.log(fetchedData[selectedCurrIndex][selectedCurr][curr])
+                finalArr.push(fetchedData[selectedCurrIndex][selectedCurr][curr])
+            } )
+            currencies.forEach((curr ,index) => {
+                if(index === selectedCurrIndex)return
+                console.log(fetchedData[index][currencies[index]].usd)
+                finalArr.push(fetchedData[index][currencies[index]][selectedCurr])
+            })
+            finalArr.sort((a,b) => b-a)
+            console.log(finalArr)
+            // CHECK THE FUCNTION BELOW
+            longestArray(finalArr, 12, 0.5)
+        }
+        subTask("usd")
+
+    // finding the longest array that suits the subtask conditions
+    // from created array in the previous function
+    function longestArray(A, N){
+        
+        let maxLen = 0
+        let beginning = 0
+        let window = new Map()
+        let start = 0
+    
+        for(let end=0;end<N;end++){
+    
+            if(window.has(A[end]))
+                window.set(A[end],window.get(A[end]) + 1)
+            else
+                window.set(A[end] , 1)
+
+            let minimum = Math.min(...window.keys())
+            let maximum = Math.max(...window.keys())
+    
+            if(maximum - minimum <= 0.5){
+                if(maxLen < end - start + 1){
+                    maxLen = end - start + 1
+                    beginning = start
+                }
+            }
+            else{
+                while(start < end){
+                    window.set(A[start],window.get(A[start]) - 1)
+                    if(window.get(A[start]) == 0)
+                        window.delete(A[start])
+                
+                    start += 1
+                    minimum = Math.min(...window.keys())
+                    maximum = Math.max(...window.keys())
+
+                    if(maximum - minimum <= 0.5)
+                        break
+                }
+            }
+        }
+                        
+        let result = 0
+        for(let i=beginning;i<beginning+maxLen;i++){
+            ++result
+        }
+        console.log(result)
+    }
+        //filtering the currencies depending on the user selection
+        // and sorting them into 3 groups 
+        const handlingData = (curr) => {
+
+            //calling the subTask function to get the longest array
+            // considering the mentioned conditions
+            subTask(curr)
+            //filtering currencies
+            let filteredData = fetchedData.filter((item) => item[curr] )
+            filteredData = filteredData[0]
+            console.log(filteredData)
+            //sorting the objects functiionality
+            let keys = Object.keys(filteredData[curr])
+            const sortedData = Object.fromEntries(
+                Object.entries(filteredData[curr]).sort(([,a],[,b]) => a-b)
+            );
+            console.log(sortedData)
+            //sorting the selected currency into 3 groups by the value of the exchange rate
+            keys.forEach((key , index) => {
+                index === 0 ? (groups.forEach((group) => group.innerHTML="")) : null 
+                if(key !== curr &&( key === "usd" ||  key === "eur" || key === "aud" || key === "cad" || key === "chf" || key === "nzd" || key === "bgn")){
+                    if(sortedData[`${key}`] < 1){
+                        let test = document.createElement("p")
+                        test.textContent = key + " : " +sortedData[`${key}`]
+                        groups[0].appendChild(test)
+                    }
+                    else if(sortedData[`${key}`] >= 1 && sortedData[`${key}`] < 1.5  ){
+                        let test = document.createElement("p")
+                        test.textContent = key + " : " +sortedData[`${key}`]
+                        groups[1].appendChild(test)
+                    }
+                    else{
+                        let test = document.createElement("p")
+                        test.textContent = key + " : " +sortedData[`${key}`]
+                        groups[2].appendChild(test)
+                    }
+                }    
+            })
+        }
+        handlingData('usd')
+        
+        // Listening to the user select
+        let select = document.getElementById("choosedCurrency")
+        select.addEventListener("change" , (e) => {
+            e.preventDefault()
+            const selectedCurr = e.target.value
+            console.log(selectedCurr)
+            handlingData(selectedCurr)
+        })
+    }
+    try{
+        getCurrencies()
+    }
+    catch(error){
+        console.log(error)
+    }
+     
+})

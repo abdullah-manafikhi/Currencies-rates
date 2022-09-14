@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/scss/main.css">
+    <title>Curreny-Rates</title>
+</head>
+<body>
+
+    <!--====== NAVBAR =======-->
+    <nav>
+        <h2 class="nav_logo">Curreny Rates</h2>
+    </nav>
+    <main>
+        <!--=========DROP DOWN SELECT =========-->
+        <div class="select-curr">
+            <label for="cars">Choose a Currency:</label>
+            <select id="choosedCurrency" name="currencies">
+                <option value="usd" selected>USD</option>
+                <option value="eur">EUR</option>
+                <option value="aud">AUD</option>
+                <option value="cad">CAD</option>
+                <option value="chf">CHF</option>
+                <option value="nzd">NZD</option>
+                <option value="bgn">BGN</option>
+            </select>
+        </div>
+
+       
+
+        <!--========= DISPLAYING CURRENCIES =======-->
+        <div class="grid" id="grid">
+            <div class="groups group-1 ">
+                <h2 class="group-head">Group 1</h2>
+                <p>rate &lt 1</p>
+                <div class="group-data group-1-data" id="group1Data"></div>
+            </div>
+            <div class="groups group-2">
+                <h2 class="group-head">Group 2</h2>
+                <p>1 &lt rate &lt 1.5</p>
+                <div class="group-data group-2-data" id="group2Data"></div>
+            </div>
+            <div class="groups group-3">
+                <h2 class="group-head">Group 3</h2>
+                <p>rate &gt 1.5</p>
+                <div class="group-data group-3-data" id="group3Data"></div>
+            </div>
+        </div>
+        <div class="sub-task">
+            <h3 class="sub-task-head">The length of the array is :</h2>
+            <p id="subTextValue">6</p>
+        </div>
+
+         <!--========= Loading ===============-->
+
+         <div class="loading" id="loading">
+            <p>Loading....</p>
+        </div>
+    </main>
+
+    <script src="assets/index.js"></script>
+</body>
+</html>

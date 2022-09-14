@@ -1,0 +1,71 @@
+body {
+  margin: 0rem;
+  padding: 0rem;
+  width: 100%;
+}
+
+nav {
+  height: 3rem;
+  width: 100%;
+  background-color: #045004;
+  position: absolute;
+  color: white;
+}
+
+nav .nav_logo {
+  margin: .6rem 1.5rem;
+}
+
+main {
+  position: relative;
+  top: 3rem;
+  padding: 3rem 0rem;
+}
+
+main .select-curr {
+  margin: auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+main .grid {
+  margin-top: 1.5rem;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto auto;
+      grid-template-columns: auto auto auto;
+}
+
+main .grid .groups {
+  text-align: center;
+  color: #045004;
+}
+
+main .grid .groups p {
+  color: black;
+}
+
+main .loading {
+  width: 100%;
+  text-align: center;
+}
+
+main .sub-task {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .sub-task h3 {
+  color: #045004;
+}
+
+main .sub-task p {
+  margin: 1.4rem 0rem 0rem 1rem;
+}
+/*# sourceMappingURL=main.css.map */
