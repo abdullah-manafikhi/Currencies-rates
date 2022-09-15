@@ -26,11 +26,11 @@ async function fetchAssets(event){
     }
     catch(error){
         const cache = await caches.open(CACHE_NAME)
-        return cache.match(event.request)
+        return cache.match(static_assets)
     }
 }
 
 self.addEventListener("fetch" , event => {  
     console.log("[sw] fetched")
-    event.respondWith(fetchAssets)
+    event.respondWith(fetchAssets(event))
 })
