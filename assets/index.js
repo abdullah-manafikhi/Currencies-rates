@@ -2,19 +2,14 @@
 
         let loading = document.getElementById("loading")
         let groups = document.querySelectorAll(".group-data")
-        console.log(groups)
-        console.log(loading)
         let currencies = ['usd' , 'eur' , 'aud' , 'cad' , 'chf' , 'nzd' , 'bgn']
         // ====== FETCHING API ========
         const getCurrencies = async () => {
             let fetchedData = []
                 await Promise.all(
                 currencies.map( async (currency) => {
-                    console.log(currency)
                     const result = await fetch(`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}.json`)
-                    console.log(result)
                     const data = await result.json()
-                    console.log(data)
                     fetchedData.push(data)
                 })
             );
@@ -26,26 +21,19 @@
             const fetchedData = await getCurrencies()
             // DISPLAYING LOADING WHILE FETCHINF THE API AND THEN HIDE IT 
             fetchedData.length !== 0? loading.style.display = 'none' : loading.style.display = 'block'
-            console.log(fetchedData)
-
             
             const subTask = (selectedCurr) => {
                 const selectedCurrIndex = fetchedData.findIndex(obj => obj[selectedCurr] )
-                console.log(fetchedData)
-                console.log(fetchedData[selectedCurrIndex]) 
                 let finalArr = []
                 currencies.forEach((curr) =>{
                     if(curr === selectedCurr)return
-                    console.log(fetchedData[selectedCurrIndex][selectedCurr][curr])
                     finalArr.push(fetchedData[selectedCurrIndex][selectedCurr][curr])
                 } )
                 currencies.forEach((curr ,index) => {
                     if(index === selectedCurrIndex)return
-                    // console.log(fetchedData[index][currencies[index]].usd)
                     finalArr.push(fetchedData[index][currencies[index]][selectedCurr])
                 })
                 finalArr.sort((a,b) => b-a)
-                console.log(finalArr)
                 // CHECK THE FUCNTION BELOW
                 longestArray(finalArr, 12, 0.5)
             }
@@ -109,13 +97,11 @@
             //filtering currencies
             let filteredData = fetchedData.filter((item) => item[curr] )
             filteredData = filteredData[0]
-            console.log(filteredData)
             //sorting the objects functiionality
             let keys = Object.keys(filteredData[curr])
             const sortedData = Object.fromEntries(
                 Object.entries(filteredData[curr]).sort(([,a],[,b]) => a-b)
             );
-            console.log(sortedData)
             //sorting the selected currency into 3 groups by the value of the exchange rate
             keys.forEach((key , index) => {
                 index === 0 ? (groups.forEach((group) => group.innerHTML="")) : null 
@@ -145,7 +131,6 @@
         select.addEventListener("change" , (e) => {
             e.preventDefault()
             const selectedCurr = e.target.value
-            console.log(selectedCurr)
             handlingData(selectedCurr)
         })
         }

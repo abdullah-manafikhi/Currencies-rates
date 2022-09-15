@@ -62,7 +62,17 @@
 
     <script src="assets/index.js"></script>
     <script>
-            navigator.serviceWorker.register('sw.js')
+       /* navigator.serviceWorker.getRegistrations().then(function(registrations) {
+ for(let registration of registrations) {
+  registration.unregister()
+} })*/
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').then(function(reg) {
+                console.log('Yey!', reg);
+            }).catch(function(err) {
+                console.log('Boo!', err);
+            });
+        }
     </script>
 </body>
 </html>
