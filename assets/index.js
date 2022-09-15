@@ -75,7 +75,6 @@
         }
 
         function subTask(selectedCurr , fetchedData) {
-            console.log(fetchedData)
             //getting the selected currency index from the fetched array
             const selectedCurrIndex = fetchedData.findIndex(obj => obj[selectedCurr] )
             let finalArr = []
@@ -83,14 +82,11 @@
                 if(curr === selectedCurr)return
                 finalArr.push(fetchedData[selectedCurrIndex][selectedCurr][curr])
             })
-            console.log(finalArr)
             currencies.forEach((curr ,index) => {
                 if(index === selectedCurrIndex)return
-                console.log()
                 finalArr.push(fetchedData[index][currencies[index]][selectedCurr])
             })
             finalArr.sort((a,b) => b-a)
-            console.log(finalArr)
             // CHECK THE FUCNTION BELOW
             longestArray(finalArr, 12, 0.5)
         }
