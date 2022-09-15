@@ -26,7 +26,7 @@ async function fetchAssets(event){
     }
     catch(error){
         const cache = await caches.open(CACHE_NAME)
-        return cache.match(static_assets)
+        return cache.match(STATIC_ASSETS)
     }
 }
 
