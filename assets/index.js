@@ -75,6 +75,9 @@
         }
 
         function subTask(selectedCurr , fetchedData) {
+            //sorting currencies array by the consequence of the fethced currenciew
+            let keys = fetchedData.map((data) =>Object.keys(data))
+            currencies = keys.map((key) => key[1])
             //getting the selected currency index from the fetched array
             const selectedCurrIndex = fetchedData.findIndex(obj => obj[selectedCurr] )
             let finalArr = []
