@@ -48,10 +48,6 @@
                 <div class="group-data group-3-data" id="group3Data"></div>
             </div>
         </div>
-        <div class="sub-task">
-            <h3 class="sub-task-head">The length of the array is :</h2>
-            <p id="subTaskValue"></p>
-        </div>
 
          <!--========= Loading ===============-->
 
@@ -62,10 +58,6 @@
 
     <script src="assets/index.js"></script>
     <script>
-     /*  navigator.serviceWorker.getRegistrations().then(function(registrations) {
- for(let registration of registrations) {
-  registration.unregister()
-} })*/
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js').then(function(reg) {
             }).catch(function(err) {

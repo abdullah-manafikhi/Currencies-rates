@@ -24,14 +24,11 @@
             const fetchedData = await getCurrencies()
             // DISPLAYING LOADING WHILE FETCHINF THE API AND THEN HIDE IT 
             fetchedData.length !== 0? loading.style.display = 'none' : loading.style.display = 'block'
-            subTask("usd" , fetchedData)
             
             //filtering the currencies depending on the user selection
             // and sorting them into 3 groups 
             const handlingData = (curr) => {
-                //calling the subTask function to get the longest array
-                // considering the mentioned conditions
-                subTask(curr , fetchedData)
+                
                 //getting the object of the selected currency
                 let filteredData = fetchedData.filter((item) => item[curr] )
                 filteredData = filteredData[0]
@@ -72,75 +69,6 @@
             const selectedCurr = e.target.value
             handlingData(selectedCurr)
         })
-        }
-
-        function subTask(selectedCurr , fetchedData) {
-            //sorting currencies array by the consequence of the fethced currenciew
-            let keys = fetchedData.map((data) =>Object.keys(data))
-            currencies = keys.map((key) => key[1])
-            //getting the selected currency index from the fetched array
-            const selectedCurrIndex = fetchedData.findIndex(obj => obj[selectedCurr] )
-            let finalArr = []
-            currencies.forEach((curr) =>{
-                if(curr === selectedCurr)return
-                finalArr.push(fetchedData[selectedCurrIndex][selectedCurr][curr])
-            })
-            currencies.forEach((curr ,index) => {
-                if(index === selectedCurrIndex)return
-                finalArr.push(fetchedData[index][currencies[index]][selectedCurr])
-            })
-            finalArr.sort((a,b) => b-a)
-            // CHECK THE FUCNTION BELOW
-            longestArray(finalArr, 12, 0.5)
-        }
-        
-        // finding the longest array that suits the subtask conditions
-        // from created array in the previous function
-        function longestArray(A, N){
-                
-            let maxLen = 0
-            let beginning = 0
-            let window = new Map()
-            let start = 0
-        
-            for(let end=0;end<N;end++){
-        
-                if(window.has(A[end]))
-                    window.set(A[end],window.get(A[end]) + 1)
-                else
-                    window.set(A[end] , 1)
-
-                let minimum = Math.min(...window.keys())
-                let maximum = Math.max(...window.keys())
-        
-                if(maximum - minimum <= 0.5){
-                    if(maxLen < end - start + 1){
-                        maxLen = end - start + 1
-                        beginning = start
-                    }
-                }
-                else{
-                    while(start < end){
-                        window.set(A[start],window.get(A[start]) - 1)
-                        if(window.get(A[start]) == 0)
-                            window.delete(A[start])
-                    
-                        start += 1
-                        minimum = Math.min(...window.keys())
-                        maximum = Math.max(...window.keys())
-
-                        if(maximum - minimum <= 0.5)
-                            break
-                    }
-                }
-            }
-                            
-            let result = 0
-            for(let i=beginning;i<beginning+maxLen;i++){
-                ++result
-            }
-            const value = document.getElementById("subTaskValue")
-            value.innerText = result
         }
       
         try{
