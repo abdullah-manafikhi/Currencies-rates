@@ -11,4 +11,4 @@ Sample requests: </br>
   https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/eur.json</br>
   https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/bgn.json</br></br>
   
-This website has offline support, so it functions offline as if it is online.
+This website has offline support using Service Worker, so it functions offline as if it is online.
