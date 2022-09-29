@@ -1,6 +1,7 @@
 # Currencies-rates
 This is a single page application consists of a dropdown prepopulated with the following currencies:</br>
 USD, EUR, AUD, CAD, CHF, NZD, BGN </br>
+when the user select a currency it will display the rates of these currency with the remaining currencies </br>
 The default selected currency is: USD </br></br>
 
 The API url is:
