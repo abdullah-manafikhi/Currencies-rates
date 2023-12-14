@@ -1,5 +1,5 @@
 # Currencies-rates
-This is a single-page application consisting of a dropdown prepopulated with the following currencies:</br>
+I built a single-page website consisting of a dropdown prepopulated with the following currencies:</br>
 USD, EUR, AUD, CAD, CHF, NZD, BGN. </br>
 when the user selects a currency it will display the rates of this currency with the remaining currencies. </br>
 The default selected currency is USD. </br>
